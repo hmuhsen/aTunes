@@ -49,6 +49,7 @@ public class PlayListControlsPanel extends JPanel {
 	private JMenuItem sortByArtist;
 	private JMenuItem sortByAlbum;
 	private JMenuItem sortByGenre;
+	private JMenuItem sortByDuration;
 	
 	private JButton savePlaylistButton;
 	private JButton loadPlaylistButton;
@@ -86,6 +87,7 @@ public class PlayListControlsPanel extends JPanel {
 		sortByArtist = new JMenuItem(LanguageTool.getString("SORT_BY_ARTIST"));
 		sortByAlbum = new JMenuItem(LanguageTool.getString("SORT_BY_ALBUM"));
 		sortByGenre = new JMenuItem(LanguageTool.getString("SORT_BY_GENRE"));
+		sortByDuration = new JMenuItem(LanguageTool.getString("SORT_BY_DURATION"));
 		
 		sortPopup.add(showTrack);
 		sortPopup.add(showArtist);
@@ -97,6 +99,7 @@ public class PlayListControlsPanel extends JPanel {
 		sortPopup.add(sortByArtist);
 		sortPopup.add(sortByAlbum);
 		sortPopup.add(sortByGenre);
+		sortPopup.add(sortByDuration);
 		
 		savePlaylistButton = new CustomButton(ImageLoader.SAVE, null);
 		savePlaylistButton.setToolTipText(LanguageTool.getString("SAVE_PLAYLIST_TOOLTIP"));
@@ -278,6 +281,10 @@ public class PlayListControlsPanel extends JPanel {
 
 	public JMenuItem getSortByGenre() {
 		return sortByGenre;
+	}
+	
+	public JMenuItem getSortByDuration() {
+		return sortByDuration;
 	}
 
 	public JCheckBoxMenuItem getShowGenre() {
