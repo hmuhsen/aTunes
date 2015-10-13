@@ -48,6 +48,7 @@ public class PlayListControlsController extends PanelController {
 		panel.getSortByArtist().addActionListener(listener);
 		panel.getSortByAlbum().addActionListener(listener);
 		panel.getSortByGenre().addActionListener(listener);
+		
 		panel.getSavePlaylistButton().addActionListener(listener);
 		panel.getLoadPlaylistButton().addActionListener(listener);
 		panel.getTopButton().addActionListener(listener);
