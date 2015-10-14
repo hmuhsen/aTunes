@@ -129,7 +129,7 @@ public class PlayListController extends PanelController implements PlayListColum
 		else if (column.equals(LanguageTool.getString("GENRE")))
 			HandlerProxy.getPlayListHandler().sortPlaylistByGenre();
 		else if (column.equals(LanguageTool.getString("DURATION")))
-			HandlerProxy.getPlayListHandler().sortPlaylistByGenre();
+			HandlerProxy.getPlayListHandler().sortPlaylistByDuration();
 			}
 	
 	public void updatePositionInTable(int pos) {
