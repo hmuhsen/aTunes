@@ -124,6 +124,8 @@ public class PlayListController extends PanelController implements PlayListColum
 		}
 		else if (column.equals(LanguageTool.getString("ARTIST"))) 
 			HandlerProxy.getPlayListHandler().sortPlaylistByArtist();
+		else if (column.equals(LanguageTool.getString("DURATION"))) 
+			HandlerProxy.getPlayListHandler().sortPlaylistByDuration();
 		else if (column.equals(LanguageTool.getString("ALBUM")))
 			HandlerProxy.getPlayListHandler().sortPlaylistByAlbum();
 		else if (column.equals(LanguageTool.getString("GENRE")))
