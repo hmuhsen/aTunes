@@ -41,6 +41,7 @@ public class PlayListTableModel implements TableModel {
 	private ArrayList<TableModelListener> listeners;
 	private boolean trackVisible = true;
 	private boolean artistVisible = true;
+	private boolean durationVisible = true;
 	private boolean albumVisible = true;
 	private boolean genreVisible = true;
 
@@ -87,8 +88,8 @@ public class PlayListTableModel implements TableModel {
 		int columns = getColumnCount();
 		if (columns == 0)
 			return;
-		
-		currentHeaders = new PlayListColumn[columns];
+		// FIXME count is coming 7 when there are 8 items
+		currentHeaders = new PlayListColumn[columns+1];
 
 		currentHeaders[0] = PlayListColumn.FAVORITE;
 		int c = 1;
@@ -99,11 +100,14 @@ public class PlayListTableModel implements TableModel {
 
 		if (artistVisible) 
 			currentHeaders[c++] = PlayListColumn.ARTIST;
+		if (durationVisible) 
+			currentHeaders[c++] = PlayListColumn.DURATION;
 		if (albumVisible)
 			currentHeaders[c++] = PlayListColumn.ALBUM;
 		if (genreVisible)
 			currentHeaders[c++] = PlayListColumn.GENRE;
-		currentHeaders[c] = PlayListColumn.DURATION;
+		if (durationVisible)
+			currentHeaders[c++] = PlayListColumn.DURATION;
 	}
 	
 	private PlayListColumn getColumn(int colIndex) {
@@ -115,7 +119,7 @@ public class PlayListTableModel implements TableModel {
 	}
 
 	public int getColumnCount() {
-		return headers.length - (trackVisible ? 0 : 1) - (artistVisible ? 0 : 1) - (albumVisible ? 0 : 1) - (genreVisible ? 0 : 1);
+		return headers.length - (trackVisible ? 0 : 1) - (artistVisible ? 0 : 1) - (durationVisible ? 0 : 1) - (albumVisible ? 0 : 1) - (genreVisible ? 0 : 1);
 	}
 	
 	public String getColumnName(int colIndex) {
@@ -284,6 +288,12 @@ public class PlayListTableModel implements TableModel {
 		refresh();
 	}
 	
+	public void setDurationVisible(boolean durationVisible) {
+		this.durationVisible = durationVisible;
+		setCurrentHeaders();
+		refresh();
+	}
+	
 	public void setAlbumVisible(boolean albumVisible) {
 		this.albumVisible = albumVisible;
 		setCurrentHeaders();
@@ -300,6 +310,10 @@ public class PlayListTableModel implements TableModel {
 
 	public boolean isArtistVisible() {
 		return artistVisible;
+	}
+	
+	public boolean isDurationVisible() {
+		return durationVisible;
 	}
 
 	public void setGenreVisible(boolean genreVisible) {

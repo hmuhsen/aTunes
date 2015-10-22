@@ -34,6 +34,7 @@ public class PlayListControlsController extends PanelController {
 		disablePlayListControls(true);
 		((PlayListControlsPanel) panelControlled).getShowAlbum().setSelected(Kernel.getInstance().state.isShowAlbumInPlayList());
 		((PlayListControlsPanel) panelControlled).getShowArtist().setSelected(Kernel.getInstance().state.isShowArtistInPlayList());
+		((PlayListControlsPanel) panelControlled).getShowDuration().setSelected(Kernel.getInstance().state.isShowDurationInPlayList());
 		((PlayListControlsPanel) panelControlled).getShowGenre().setSelected(Kernel.getInstance().state.isShowGenreInPlayList());
 		((PlayListControlsPanel) panelControlled).getShowTrack().setSelected(Kernel.getInstance().state.isShowTrackInPlayList());
 	}
@@ -62,6 +63,7 @@ public class PlayListControlsController extends PanelController {
 		panel.getFavoriteArtist().addActionListener(listener);
 		panel.getShowTrack().addActionListener(listener);
 		panel.getShowArtist().addActionListener(listener);
+		panel.getShowDuration().addActionListener(listener);
 		panel.getShowGenre().addActionListener(listener);
 		panel.getShowAlbum().addActionListener(listener);
 		panel.getArtistButton().addActionListener(listener);
