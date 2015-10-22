@@ -80,29 +80,29 @@ public class PlayListControlsPanel extends JPanel {
 		sortPopup = new PopUpButton(LanguageTool.getString("OPTIONS"), PopUpButton.TOP_RIGHT);
 		
 		showTrack = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_TRACKS"));
-		showArtist = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_ARTISTS"));
-		showDuration = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_DURATION"));
+		showArtist = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_ARTISTS"));		
 		showAlbum = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_ALBUMS"));
 		showGenre = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_GENRE"));
-		sortByTrack = new JMenuItem(LanguageTool.getString("SORT_BY_TRACK_NUMBER"));
+		showDuration = new JCheckBoxMenuItem(LanguageTool.getString("SHOW_DURATION"));	
 		sortByTitle = new JMenuItem(LanguageTool.getString("SORT_BY_TITLE"));
 		sortByArtist = new JMenuItem(LanguageTool.getString("SORT_BY_ARTIST"));
 		sortByDuration = new JMenuItem(LanguageTool.getString("SORT_BY_DURATION"));
 		sortByAlbum = new JMenuItem(LanguageTool.getString("SORT_BY_ALBUM"));
 		sortByGenre = new JMenuItem(LanguageTool.getString("SORT_BY_GENRE"));
+		sortByTrack = new JMenuItem(LanguageTool.getString("SORT_BY_TRACK_NUMBER"));
 		
 		sortPopup.add(showTrack);
-		sortPopup.add(showArtist);
-		sortPopup.add(showDuration);
+		sortPopup.add(showArtist);		
 		sortPopup.add(showAlbum);
 		sortPopup.add(showGenre);
+		sortPopup.add(showDuration);
 		sortPopup.add(new JSeparator());
 		sortPopup.add(sortByTrack);
 		sortPopup.add(sortByTitle);
-		sortPopup.add(sortByArtist);
-		sortPopup.add(sortByDuration);
+		sortPopup.add(sortByArtist);	
 		sortPopup.add(sortByAlbum);
 		sortPopup.add(sortByGenre);
+		sortPopup.add(sortByDuration);
 		
 		savePlaylistButton = new CustomButton(ImageLoader.SAVE, null);
 		savePlaylistButton.setToolTipText(LanguageTool.getString("SAVE_PLAYLIST_TOOLTIP"));

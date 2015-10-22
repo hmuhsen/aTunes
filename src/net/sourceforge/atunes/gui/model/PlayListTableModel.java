@@ -88,8 +88,8 @@ public class PlayListTableModel implements TableModel {
 		int columns = getColumnCount();
 		if (columns == 0)
 			return;
-		// FIXME count is coming 7 when there are 8 items
-		currentHeaders = new PlayListColumn[columns+1];
+	
+		currentHeaders = new PlayListColumn[columns];
 
 		currentHeaders[0] = PlayListColumn.FAVORITE;
 		int c = 1;
@@ -100,14 +100,12 @@ public class PlayListTableModel implements TableModel {
 
 		if (artistVisible) 
 			currentHeaders[c++] = PlayListColumn.ARTIST;
-		if (durationVisible) 
-			currentHeaders[c++] = PlayListColumn.DURATION;
 		if (albumVisible)
 			currentHeaders[c++] = PlayListColumn.ALBUM;
 		if (genreVisible)
 			currentHeaders[c++] = PlayListColumn.GENRE;
 		if (durationVisible)
-			currentHeaders[c++] = PlayListColumn.DURATION;
+			currentHeaders[c] = PlayListColumn.DURATION;
 	}
 	
 	private PlayListColumn getColumn(int colIndex) {
