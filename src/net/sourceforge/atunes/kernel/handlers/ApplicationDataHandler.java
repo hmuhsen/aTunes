@@ -166,6 +166,9 @@ public class ApplicationDataHandler {
 		// Show artist in play list
 		HandlerProxy.getVisualHandler().getPlayListTableModel().setArtistVisible(state.isShowArtistInPlayList());
 		
+		// Show duration in play list
+		HandlerProxy.getVisualHandler().getPlayListTableModel().setDurationVisible(state.isShowDurationInPlayList());
+		
 		// Show album in play list
 		HandlerProxy.getVisualHandler().getPlayListTableModel().setAlbumVisible(state.isShowAlbumInPlayList());
 		
