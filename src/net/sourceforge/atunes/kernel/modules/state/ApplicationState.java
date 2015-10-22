@@ -53,6 +53,7 @@ public class ApplicationState implements Serializable {
 	private ProxyBean proxy;
 	private boolean showTrackInPlayList = true;
 	private boolean showArtistInPlayList = true;
+	private boolean showDurationInPlayList = true;
 	private boolean showAlbumInPlayList = true;
 	private boolean showGenreInPlayList = true;
 	private String theme = LookAndFeelSelector.DEFAULT_THEME;
@@ -277,9 +278,17 @@ public class ApplicationState implements Serializable {
 	public boolean isShowArtistInPlayList() {
 		return showArtistInPlayList;
 	}
+	
+	public boolean isShowDurationInPlayList() {
+		return showDurationInPlayList;
+	}
 
 	public void setShowArtistInPlayList(boolean showArtistInPlayList) {
 		this.showArtistInPlayList = showArtistInPlayList;
+	}
+	
+	public void setShowDurationInPlayList(boolean showDurationInPlayList) {
+		this.showDurationInPlayList = showDurationInPlayList;
 	}
 
 	public String getTheme() {
