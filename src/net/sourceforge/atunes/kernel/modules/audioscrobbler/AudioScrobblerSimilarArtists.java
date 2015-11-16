@@ -18,8 +18,11 @@
 
 package net.sourceforge.atunes.kernel.modules.audioscrobbler;
 
+import java.awt.Image;
+import java.net.URL;
 import java.util.ArrayList;
-
+import net.sourceforge.atunes.kernel.modules.network.NetworkUtils;
+import net.sourceforge.atunes.kernel.modules.proxy.Proxy;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -58,6 +61,13 @@ public class AudioScrobblerSimilarArtists {
 		}
 		
 		return similar;
+	}
+	public Image getImage(Proxy proxy) {
+		try {
+			return NetworkUtils.getImage(NetworkUtils.getConnection(new URL(getPicture()), proxy));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 }
