@@ -81,7 +81,7 @@ public class FilePropertiesController extends PanelController {
 		Thread updaterThread = new Thread() {
 			public void run() {
 				// Song properties
-				fillSongProperties();
+				panelControlled.fillSongProperties(currentFile, this);
 				// File Properties
 				fillFileProperties();
 				// Picture
@@ -119,40 +119,6 @@ public class FilePropertiesController extends PanelController {
 		else {
 			panelControlled.getPictureLabel().setIcon(null);
 			panelControlled.getPictureLabel().setVisible(false);
-		}
-	}
-	
-	void fillSongProperties() {
-		if (currentFile != null && currentFile.getTag() != null) {
-			long size = currentFile.length(); 
-			panelControlled.getFileNameLabel().setText("<html><b>" + LanguageTool.getString("FILE") + ":</b>    " + currentFile.getName() + " (" + StringUtils.fromByteToMegaOrGiga(size) + ")</html>");
-			panelControlled.getSongLabel().setText("<html><b>" + LanguageTool.getString("SONG") + ":</b>    " + currentFile.getTitleOrFileName() + " - " + currentFile.getArtist() + " - " + currentFile.getAlbum() + " (" + TimeUtils.seconds2String(currentFile.getDuration()) + ")</html>");
-			
-			if (currentFile.getTag() instanceof ID3v2Tag) {
-				if (((ID3v2Tag)currentFile.getTag()).getTrackNumber() > 0)
-					panelControlled.getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    " + ((ID3v2Tag)currentFile.getTag()).getTrackNumber());
-				else
-					panelControlled.getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ':');
-			}
-			else
-				panelControlled.getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    " + ((NonMp3Tag)currentFile.getTag()).getTrackNumber());
-			
-			if (currentFile.getTag().getYear() >= 0)
-				panelControlled.getYearLabel().setText("<html><b>" + LanguageTool.getString("YEAR") + ":</b>    " + currentFile.getTag().getYear());
-			else
-				panelControlled.getYearLabel().setText("<html><b>" + LanguageTool.getString("YEAR") + ':');
-
-			panelControlled.getGenreLabel().setText("<html><b>" + LanguageTool.getString("GENRE") + ":</b>    " + currentFile.getTag().getGenre());
-			
-			// Favorite icons
-			refreshFavoriteIcons();
-		}
-		else {
-			panelControlled.getFileNameLabel().setText("<html><b>" + LanguageTool.getString("FILE") + ":</b>    ");
-			panelControlled.getSongLabel().setText("<html><b>" + LanguageTool.getString("SONG") + ":</b>    ");
-			panelControlled.getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    ");
-			panelControlled.getYearLabel().setText("<html><b>" + LanguageTool.getString("YEAR") + ":</b>    ");
-			panelControlled.getGenreLabel().setText("<html><b>" + LanguageTool.getString("GENRE") + ":</b>    ");
 		}
 	}
 	
