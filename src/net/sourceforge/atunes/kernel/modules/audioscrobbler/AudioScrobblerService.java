@@ -128,11 +128,7 @@ public class AudioScrobblerService {
 	}
 
 	public Image getImage(AudioScrobblerSimilarArtists similar) {
-		try {
-			return NetworkUtils.getImage(NetworkUtils.getConnection(new URL(similar.getPicture()), proxy));
-		} catch (Exception e) {
-			return null;
-		}
+		return similar.getImage(proxy);
 	}
 	
 	public Image getSmallImage(AudioScrobblerAlbum album) {
