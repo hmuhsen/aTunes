@@ -31,6 +31,13 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import net.sourceforge.atunes.gui.FontSingleton;
+import net.sourceforge.atunes.kernel.controllers.fileProperties.FilePropertiesController;
+import net.sourceforge.atunes.kernel.modules.repository.audio.AudioFile;
+import net.sourceforge.atunes.kernel.modules.repository.tags.tag.ID3v2Tag;
+import net.sourceforge.atunes.kernel.modules.repository.tags.tag.NonMp3Tag;
+import net.sourceforge.atunes.utils.StringUtils;
+import net.sourceforge.atunes.utils.TimeUtils;
+import net.sourceforge.atunes.utils.language.LanguageTool;
 
 
 /**
@@ -143,6 +150,40 @@ public class FilePropertiesPanel extends JPanel {
 			songPanel.add(frequencyLabel, c);
 		}
 		return songPanel;
+	}
+
+	public void fillSongProperties(AudioFile currentFile, FilePropertiesController filePropertiesController) {
+		if (currentFile != null && currentFile.getTag() != null) {
+			long size = currentFile.length();
+			getFileNameLabel().setText("<html><b>" + LanguageTool.getString("FILE") + ":</b>    "
+					+ currentFile.getName() + " (" + StringUtils.fromByteToMegaOrGiga(size) + ")</html>");
+			getSongLabel().setText("<html><b>" + LanguageTool.getString("SONG") + ":</b>    "
+					+ currentFile.getTitleOrFileName() + " - " + currentFile.getArtist() + " - "
+					+ currentFile.getAlbum() + " (" + TimeUtils.seconds2String(currentFile.getDuration()) + ")</html>");
+			if (currentFile.getTag() instanceof ID3v2Tag) {
+				if (((ID3v2Tag) currentFile.getTag()).getTrackNumber() > 0)
+					getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    "
+							+ ((ID3v2Tag) currentFile.getTag()).getTrackNumber());
+				else
+					getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ':');
+			} else
+				getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    "
+						+ ((NonMp3Tag) currentFile.getTag()).getTrackNumber());
+			if (currentFile.getTag().getYear() >= 0)
+				getYearLabel().setText(
+						"<html><b>" + LanguageTool.getString("YEAR") + ":</b>    " + currentFile.getTag().getYear());
+			else
+				getYearLabel().setText("<html><b>" + LanguageTool.getString("YEAR") + ':');
+			getGenreLabel().setText(
+					"<html><b>" + LanguageTool.getString("GENRE") + ":</b>    " + currentFile.getTag().getGenre());
+			filePropertiesController.refreshFavoriteIcons();
+		} else {
+			getFileNameLabel().setText("<html><b>" + LanguageTool.getString("FILE") + ":</b>    ");
+			getSongLabel().setText("<html><b>" + LanguageTool.getString("SONG") + ":</b>    ");
+			getTrackLabel().setText("<html><b>" + LanguageTool.getString("TRACK") + ":</b>    ");
+			getYearLabel().setText("<html><b>" + LanguageTool.getString("YEAR") + ":</b>    ");
+			getGenreLabel().setText("<html><b>" + LanguageTool.getString("GENRE") + ":</b>    ");
+		}
 	}
 	
 }

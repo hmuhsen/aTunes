@@ -97,23 +97,29 @@ public class MPlayerHandler extends AbstractPlayer {
 		logger.info("Stopping player");
 	}
 	
-	@Override
-	public void next(boolean autoNext) {
+	public void navigateSong(String selection, boolean autoNav){
+		logger.debug("You came from: " + selection);
+		
 		boolean wasStopped = false;
-		AudioFile nextFile = currentPlayList.getNextFileToPlay();
-		if (nextFile != null) {
+		AudioFile selectedFile = null;
+		if (selection.equals("next")){
+			selectedFile = currentPlayList.getNextFileToPlay();
+		} else if (selection.equals("previous")){
+			selectedFile = currentPlayList.getPreviousFileToPlay();
+		}
+		if (selectedFile != null) {
 			try {
-				HandlerProxy.getPlayListHandler().getPlayListListener().selectedSongChanged(nextFile);
-				if (process != null || autoNext) {
+				HandlerProxy.getPlayListHandler().getPlayListListener().selectedSongChanged(selectedFile);
+				if (process != null || autoNav) {
 					stop();
 					if (!paused) {
-						play(nextFile);
+						play(selectedFile);
 						if (muted)
 							setMute(true);
 						else
 							setVolume(volume);
 						setBalance(balance);
-						logger.info("Started play of file " + nextFile);
+						logger.info("Started play of file " + selectedFile);
 					}
 					else {
 						setTime(0);
@@ -124,11 +130,12 @@ public class MPlayerHandler extends AbstractPlayer {
 					wasStopped = true;
 					setTime(0);
 				}
+
 				if (wasStopped)
 					playListController.setSelectedSong(currentPlayList.getNextFile());
 				else {
-					HandlerProxy.getVisualHandler().updateStatusBar(nextFile);
-					HandlerProxy.getVisualHandler().updateTitleBar(nextFile);
+					HandlerProxy.getVisualHandler().updateStatusBar(selectedFile);
+					HandlerProxy.getVisualHandler().updateTitleBar(selectedFile);
 					playListController.setSelectedSong(currentPlayList.getNextFile());
 				}
 			} catch (Exception e) {
@@ -136,12 +143,22 @@ public class MPlayerHandler extends AbstractPlayer {
 				stop();
 			}
 		}
-		else { // End of play list. Go to first song and stop
+		else { // End of play list. Go to first song (for next) or last song (for previous) and stop
 			stop();
-			currentPlayList.setNextFile(0);
+			if (selection.equals("next")){
+				currentPlayList.setNextFile(0);
+			} else if (selection.equals("previous")){
+				currentPlayList.setNextFile(currentPlayList.size() - 1);
+			}
 			playListController.setSelectedSong(currentPlayList.getNextFile());
 			HandlerProxy.getPlayListHandler().getPlayListListener().selectedSongChanged(currentPlayList.getCurrentFile());
 		}
+	}
+	
+	@Override
+	public void next(boolean autoNext) {
+		logger.debug("You clicked next");
+		navigateSong("next", autoNext);
 	}
 
 	public void nextWithNoGap() {
@@ -234,44 +251,8 @@ public class MPlayerHandler extends AbstractPlayer {
 	
 	@Override
 	public void previous() {
-		boolean wasStopped = false;
-		AudioFile previousFile = currentPlayList.getPreviousFileToPlay();
-		if (previousFile != null) {
-			try {
-				HandlerProxy.getPlayListHandler().getPlayListListener().selectedSongChanged(previousFile);
-				if (process != null) {
-					stop();
-					if (!paused) {
-						play(previousFile);
-						if (muted)
-							setMute(true);
-						else
-							setVolume(volume);
-						setBalance(balance);
-						logger.info("Started play of file " + previousFile);
-					}
-					else {
-						setTime(0);
-						wasStopped = true;
-					}
-				}
-				else {
-					wasStopped = true;
-					setTime(0);
-				}
-				playListController.setSelectedSong(currentPlayList.getNextFile());
-				if (wasStopped)
-					playListController.setSelectedSong(currentPlayList.getNextFile());
-				else {
-					HandlerProxy.getVisualHandler().updateStatusBar(previousFile);
-					HandlerProxy.getVisualHandler().updateTitleBar(previousFile);
-					playListController.setSelectedSong(currentPlayList.getNextFile());
-				}
-			} catch (Exception e) {
-				notifyPlayerError(e);
-				stop();
-			}
-		}
+		logger.debug("You clicked previous");
+		navigateSong("previous", false);
 	}
 	
 	@Override
