@@ -164,10 +164,12 @@ public class PlayListController extends PanelController implements PlayListColum
 	}
 	
 	public void adjustColumnsWidth() {
+		// make changes for filepath
 		PlayListTable table = ((PlayListPanel) panelControlled).getPlayListTable();
 		
 		boolean showTrack = ((PlayListTableModel)table.getModel()).isTrackVisible();
 		boolean showGenre = ((PlayListTableModel)table.getModel()).isGenreVisible();
+		// boolean showFilePath = ((PlayListTableModel)table.getModel()).isPathFileVisible();
 		
 		if (table.getColumnCount() < 2)
 			return;
@@ -179,6 +181,7 @@ public class PlayListController extends PanelController implements PlayListColum
 		int nonDurationWidth = tableWidth - favoriteColumnWidth - trackColumnWidth - durationColumnWidth;
 		int nonDurationColumns = table.getColumnCount() - 3 - (showGenre ? 1 : 0);
 		int genreColumnWidth = 100;
+		// int filePathColumnWidth = 300;
 
 		table.getColumnModel().getColumn(0).setMinWidth(favoriteColumnWidth);
 		table.getColumnModel().getColumn(0).setMaxWidth(favoriteColumnWidth);
@@ -187,6 +190,13 @@ public class PlayListController extends PanelController implements PlayListColum
 			table.getColumnModel().getColumn(1).setMinWidth(trackColumnWidth);
 			table.getColumnModel().getColumn(1).setMaxWidth(trackColumnWidth);
 		}
+		
+		/*
+		if (showFilePath) {
+			table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 1).setMinWidth(filePathColumnWidth);
+			table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 1).setMaxWidth(filePathColumnWidth);
+		}
+		*/
 
 		if (showGenre) {
 			table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 2).setMinWidth(genreColumnWidth);
